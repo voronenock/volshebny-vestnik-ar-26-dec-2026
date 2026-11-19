@@ -16,3 +16,5 @@ body{width:100%;min-height:100svh}body.scanning{overflow:hidden;background:#111}
 #intro{max-width:640px}.eyebrow{font-size:14px}figcaption,.note,.download{font-size:14px}figure img{max-height:none}#preview-modal video{width:100%;max-width:1100px;margin:32px auto}#preview-modal{display:grid;align-content:center}#preview-modal[hidden]{display:none}#close-preview{position:absolute;top:max(12px,env(safe-area-inset-top));right:16px}@media(orientation:landscape){#preview-modal video{max-height:68dvh;margin:8px auto}#preview-modal>p{margin:6px 0}}
 
 .ar-film{opacity:0}.ar-film.is-active{opacity:1}
+
+button[hidden]{display:none!important}

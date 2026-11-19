@@ -1,4 +1,4 @@
-import {MoviePlayback, TrackingGate, projectPoster, posterTransform, LAYOUTS} from './ar-core.mjs?v=t1';
+import {MoviePlayback, TrackingGate, projectPoster, posterTransform, LAYOUTS} from './ar-core.mjs?v=t2';
 const $=id=>document.getElementById(id);
 const films=[$('ar-film'),$('ar-film-back')],feed=$('camera-feed'),previewFilm=$('preview-film');
 let film=films[0],session=null,previewing=false,previewTrigger='preview',trackerModule=null,targetBuffer=null;
@@ -8,6 +8,7 @@ const playbacks=films.map((video,index)=>new MoviePlayback(video,state=>{
 }));
 let playback=playbacks[0];
 function selectSide(s,index){
+ if(s.targetIndex!==index&&s.hasPlayed){try{films[index].currentTime=film.currentTime;playbacks[index].revealed=true}catch{}}
  s.targetIndex=index;s.marker=s.markers?.[index];film=films[index];playback=playbacks[index];
  s.playbackState=s.states[index];films.forEach((video,i)=>video.classList.toggle('is-active',i===index));
 }
@@ -58,7 +59,7 @@ async function initializeTracking(s){
  await mediaDimensions(feed,s.abort.signal);
  const [module,buffer]=await Promise.all([
   trackerModule||=import('../vendor/mindar-image.prod.js').catch(e=>{trackerModule=null;throw e}),
-  targetBuffer?Promise.resolve(targetBuffer):fetch('ticket.mind?v=t1',{signal:s.abort.signal}).then(async r=>{if(!r.ok)throw new Error('Не удалось загрузить образец билета. Проверьте интернет и обновите страницу.');return targetBuffer=await r.arrayBuffer()})
+  targetBuffer?Promise.resolve(targetBuffer):fetch('ticket.mind?v=t2',{signal:s.abort.signal}).then(async r=>{if(!r.ok)throw new Error('Не удалось загрузить образец билета. Проверьте интернет и обновите страницу.');return targetBuffer=await r.arrayBuffer()})
  ]);
  if(!current(s)||generation!==s.trackingGeneration)return;
  s.input={width:feed.videoWidth,height:feed.videoHeight};feed.width=s.input.width;feed.height=s.input.height;
@@ -82,7 +83,7 @@ function render(s,now){
  const root=$('scene-root');let visible=false;
  if(s.ready&&s.gate.visible(now)){
   const transform=posterTransform(projectPoster(s.gate.pose,s.projection,s.marker,s.input,{width:root.clientWidth,height:root.clientHeight},LAYOUTS[s.targetIndex]));
-  if(transform){film.style.transform=transform;playback.reveal();visible=true}
+  if(transform){film.style.transform=transform;playback.reveal();s.hasPlayed=true;visible=true}
  }
  $('film-layer').classList.toggle('is-tracked',visible);s.frame=requestAnimationFrame(t=>render(s,t));
 }
@@ -112,9 +113,9 @@ for(const [index,video] of films.entries()){
 }
 function openPreview(index){
  previewTrigger=index?'preview-back':'preview';previewing=true;$('preview-modal').hidden=false;$('preview-status').textContent='';
- $('preview-title').textContent=index?'Оборот билета оживает':'Лицевая сторона оживает';
- previewFilm.src=index?'bilet_oborot_ozhivaet.mp4?v=t1':'bilet_ozhivaet.mp4?v=t1';
- previewFilm.poster=index?'bilet_oborot.png?v=t1':'bilet_yolka.png?v=t1';
+ $('preview-title').textContent='Новый год в Хогвартсе';
+ previewFilm.src=index?'bilet_oborot_ozhivaet.mp4?v=t2':'bilet_ozhivaet.mp4?v=t2';
+ previewFilm.poster=index?'bilet_oborot.png?v=t2':'bilet_yolka.png?v=t2';
  previewFilm.setAttribute('aria-label',index?'Анимация оборотной стороны билета':'Анимация лицевой стороны билета');
  $('close-preview').focus();previewFilm.currentTime=0;
  if(window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches){previewFilm.pause();$('preview-status').textContent='Нажмите кнопку воспроизведения на ролике, чтобы запустить анимацию.'}

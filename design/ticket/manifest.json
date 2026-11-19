@@ -1,5 +1,5 @@
 {
-  "url": "https://voronenock.github.io/volshebny-vestnik-ar-26-dec-2026/ticket/",
+  "url": "https://voronenock.github.io/volshebny-vestnik-ar-26-dec-2026/ticket/?v=2",
   "size": [
     1870,
     841
@@ -36,5 +36,5 @@
     "ticket_height_mm": 85.44919786096257,
     "effective_ppi": 250
   },
-  "poster_sha256": "e2252b8cbdcdfd6ff56004d0ea76d33b5e630d2c7b3e7f610d3ab0ffe31237b8"
+  "poster_sha256": "2add99c8fd7df439d2651be8ac8e9b044fee4e3bdc1558343a8126f443a805f2"
 }

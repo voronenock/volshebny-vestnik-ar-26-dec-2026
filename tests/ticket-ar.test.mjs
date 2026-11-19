@@ -36,7 +36,7 @@ async function harness({reduceMotion=false}={}){
  const c=new vm.SyntheticModule(Object.keys(core),function(){for(const [k,v] of Object.entries(core))this.setExport(k,v)},{context});
  const t=new vm.SyntheticModule(['Controller'],function(){this.setExport('Controller',Controller)},{context});await t.link(()=>{});await t.evaluate();
  const app=new vm.SourceTextModule(await readFile(new URL('../site/ticket/app-motion.js',import.meta.url),'utf8'),{context,importModuleDynamically:async name=>{assert.equal(name,'../vendor/mindar-image.prod.js');return t}});
- await app.link(name=>{assert.equal(name,'./ar-core.mjs?v=t1');return c});await app.evaluate();
+ await app.link(name=>{assert.equal(name,'./ar-core.mjs?v=t2');return c});await app.evaluate();
  return {elements,order,controllers,click(id){elements[id].dispatchEvent(new Event('click'))},allow(){const track={stopped:false,stop(){this.stopped=true}};permissions.at(-1).resolve({getTracks:()=>[track]});return track},frame(time){now=time;const cbs=[...frames.values()];frames.clear();cbs.forEach(cb=>cb(time))},update(index,matrix){controllers.at(-1).onUpdate?.({type:'updateMatrix',targetIndex:index,worldMatrix:matrix})},pendingFrames:()=>frames.size};
 }
 test('both inline films start in the tap before camera permission is requested',async()=>{
@@ -53,10 +53,10 @@ test('turning the ticket selects its own film; the other target cannot hide it',
  h.elements['ar-film-back'].currentTime=5;
  h.update(0,null);h.frame(2100);assert.equal(h.elements['film-layer'].classList.contains('is-tracked'),true);assert.equal(h.elements['ar-film-back'].currentTime,5);
  h.update(1,null);h.frame(2800);assert.equal(h.elements['film-layer'].classList.contains('is-tracked'),false);assert.equal(h.elements['ar-film-back'].paused,false);
- h.update(0,pose(0));h.frame(3000);assert.equal(h.elements['ar-film'].currentTime,6);assert.equal(h.elements['ar-film-back'].paused,false);h.click('stop');
+ h.update(0,pose(0));h.frame(3000);assert.equal(h.elements['ar-film'].currentTime,5);assert.equal(h.elements['ar-film-back'].paused,false);h.click('stop');
 });
 test('the two preview controls open the correct films and restore their own focus',async()=>{
- const h=await harness();h.click('preview-back');assert.match(h.elements['preview-film'].src,/bilet_oborot_ozhivaet/);assert.match(h.elements['preview-title'].textContent,/Оборот/);
+ const h=await harness();h.click('preview-back');assert.match(h.elements['preview-film'].src,/bilet_oborot_ozhivaet/);assert.match(h.elements['preview-title'].textContent,/Хогвартсе/);
  h.click('close-preview');assert.equal(h.elements['preview-back'].focused,true);assert.equal(h.elements['preview-film'].paused,true);
  h.click('preview');assert.match(h.elements['preview-film'].src,/bilet_ozhivaet/);assert.doesNotMatch(h.elements['preview-film'].src,/oborot/);
 });

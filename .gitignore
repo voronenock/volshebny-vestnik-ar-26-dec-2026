@@ -2,3 +2,7 @@
 # Rebuilt from the published ticket images.
 design/ticket/*.png
 design/ticket/*.jpg
+
+design/ticket3d/
+design/ticket/concat.txt
+design/ticket/transfer-manifest.json

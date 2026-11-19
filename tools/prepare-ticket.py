@@ -10,7 +10,7 @@ rl_config.useA85 = 0
 
 root = Path(__file__).resolve().parent.parent
 source = Path(sys.argv[1])
-url = 'https://voronenock.github.io/volshebny-vestnik-ar-26-dec-2026/ticket/'
+url = 'https://voronenock.github.io/volshebny-vestnik-ar-26-dec-2026/ticket/?v=2'
 out = root / 'site/ticket'
 out.mkdir(parents=True, exist_ok=True)
 design = root / 'design/ticket'
