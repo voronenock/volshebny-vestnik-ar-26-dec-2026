@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#18352e">
+  <title>Оживи билет в Хогвартс</title>
+  <link rel="stylesheet" href="style.css?v=t1">
+  <script src="app-motion.js?v=t1" type="module"></script>
+</head>
+<body>
+  <main id="intro">
+    <p class="masthead">ВОЛШЕБНЫЙ ВЕСТНИК</p>
+    <div class="rule"></div>
+    <p class="eyebrow">БИЛЕТ НА НОВОГОДНЮЮ ЁЛКУ</p>
+    <h1>Твой билет<br>оживает.</h1>
+    <p class="lead">Спереди оживают буквы и стаканчик, сзади — письмо из школы волшебства.</p>
+    <figure><img src="bilet_yolka.png?v=t1" alt="Билет на ёлку с рисунком стаканчика Хогвартс"><figcaption>Держите билет целиком в кадре. Можно показывать любую сторону.</figcaption></figure>
+    <button id="start" class="primary" type="button">Открыть камеру</button>
+    <button id="preview" class="secondary" type="button">Лицевая сторона без камеры</button>
+    <button id="preview-back" class="secondary" type="button">Оборот без камеры</button>
+    <p id="intro-status" role="status" aria-live="polite"></p>
+    <p class="note">Разрешите доступ к камере и наведите телефон на любую сторону билета. Ролик длится 12 секунд и повторяется.</p>
+    <a class="download" href="bilet_yolka.png?v=t1" download="Bilet_yolka_s_QR.png">Скачать лицевую сторону</a> <a class="download" href="bilet_oborot.png?v=t1" download="Bilet_oborot.png">Скачать оборот</a> <a class="download" href="bilet_ozhivaet.mp4?v=t1" download="Bilet_ozhivaet.mp4">Скачать ролик</a>
+    <p class="note">Со стаканчиком «Хогвартс» подойдите на бар — там бесплатно нальют лимитированный напиток.</p>
+    <a class="download" href="bilety_A4_dvustoronnie.pdf?v=t1" download>Билеты для двусторонней печати A4</a>
+    <a class="download" href="../">Оживить афишу</a>
+    <p class="privacy">Изображение с камеры обрабатывается на вашем устройстве.</p>
+  </main>
+  <section id="camera" aria-label="Камера волшебного билета" hidden>
+    <div id="scene-root">
+      <video id="camera-feed" autoplay playsinline webkit-playsinline muted aria-hidden="true"></video>
+      <div id="film-layer" aria-hidden="true"><video class="ar-film is-active" id="ar-film" src="bilet_ozhivaet.mp4?v=t1" poster="bilet_yolka.png?v=t1" playsinline webkit-playsinline muted loop preload="auto" disablepictureinpicture></video><video class="ar-film" id="ar-film-back" src="bilet_oborot_ozhivaet.mp4?v=t1" poster="bilet_oborot.png?v=t1" playsinline webkit-playsinline muted loop preload="auto" disablepictureinpicture></video></div>
+    </div>
+    <div class="camera-top"><span class="camera-label">ВОЛШЕБНЫЙ ВЕСТНИК</span><button id="stop" type="button">Закрыть</button></div>
+    <div class="camera-bottom"><p id="tracking-status" role="status" aria-live="polite">Наведите камеру на любую сторону билета целиком</p><button id="restart-film" type="button">Смотреть сначала</button></div>
+  </section>
+  <section id="preview-modal" role="dialog" aria-modal="true" aria-label="Оживший билет" hidden>
+    <button id="close-preview" type="button">Закрыть</button>
+    <p id="preview-title">Лицевая сторона оживает</p>
+    <video id="preview-film" src="bilet_ozhivaet.mp4?v=t1" poster="bilet_yolka.png" playsinline muted loop controls preload="metadata" aria-label="Ролик с буквами, которые едут цепочками по всему билету"></video><p id="preview-status" role="status" aria-live="polite"></p>
+    <p class="note">Этот ролик появится поверх билета при наведении камеры.</p>
+  </section>
+</body>
+</html>

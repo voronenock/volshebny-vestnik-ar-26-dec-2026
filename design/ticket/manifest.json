@@ -1,0 +1,40 @@
+{
+  "url": "https://voronenock.github.io/volshebny-vestnik-ar-26-dec-2026/ticket/",
+  "size": [
+    1870,
+    841
+  ],
+  "qr_box": [
+    1652,
+    554,
+    1842,
+    744
+  ],
+  "marker_box": [
+    752,
+    162,
+    1388,
+    772
+  ],
+  "event": "НОВОГОДНЯЯ ЁЛКА В ШКОЛЕ ВОЛШЕБСТВА",
+  "date": "26 декабря",
+  "time": "19:00",
+  "drink": "Подойди на бар со стаканчиком «Хогвартс» — тебе бесплатно нальют лимитированный напиток.",
+  "marker_box_back": [
+    640,
+    158,
+    1334,
+    762
+  ],
+  "print": {
+    "page": "A4",
+    "tickets": 3,
+    "pages": 2,
+    "duplex_flip": "long_edge",
+    "scale_percent": 100,
+    "ticket_width_mm": 190,
+    "ticket_height_mm": 85.44919786096257,
+    "effective_ppi": 250
+  },
+  "poster_sha256": "e2252b8cbdcdfd6ff56004d0ea76d33b5e630d2c7b3e7f610d3ab0ffe31237b8"
+}

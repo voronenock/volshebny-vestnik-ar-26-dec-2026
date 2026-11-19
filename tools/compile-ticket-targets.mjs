@@ -1,0 +1,16 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {createRequire} from 'node:module';
+import {pathToFileURL,fileURLToPath} from 'node:url';
+const root=path.dirname(path.dirname(fileURLToPath(import.meta.url)));
+const toolsRoot=process.env.AR_BUILD_TOOLS||'/workspace/scratch/b05a3106a03d/ar_build_tools';
+const require=createRequire(path.join(toolsRoot,'package.json'));
+const {loadImage}=require('canvas');
+const tf=await import(pathToFileURL(require.resolve('@tensorflow/tfjs')));
+const {OfflineCompiler}=await import(pathToFileURL(path.join(toolsRoot,'node_modules/mind-ar/src/image-target/offline-compiler.js')));
+await tf.setBackend('cpu');await tf.ready();
+const images=await Promise.all(['tracking-image.png','tracking-back.png'].map(n=>loadImage(path.join(root,'design/ticket',n))));
+const compiler=new OfflineCompiler();let last=-1;
+const targets=await compiler.compileImageTargets(images,progress=>{const n=Math.floor(progress/20)*20;if(n!==last){console.log(`Compiling ${n}%`);last=n}});
+const output=path.join(root,'site/ticket/ticket.mind');fs.writeFileSync(output,Buffer.from(compiler.exportData()));
+console.log(JSON.stringify({targets:targets.length,dimensions:images.map(x=>[x.width,x.height]),bytes:fs.statSync(output).size}));
