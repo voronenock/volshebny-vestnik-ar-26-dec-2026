@@ -1,4 +1,4 @@
-import {MoviePlayback, TrackingGate, projectPoster, posterTransform} from './ar-core.mjs?v=7';
+import {MoviePlayback, TrackingGate, projectPoster, posterTransform} from './ar-core.mjs?v=8';
 const $=id=>document.getElementById(id);
 const film=$('ar-film'),feed=$('camera-feed'),previewFilm=$('preview-film');
 let session=null,previewing=false,trackerModule=null,targetBuffer=null;
@@ -53,7 +53,7 @@ async function initializeTracking(s){
  await mediaDimensions(feed,s.abort.signal);
  const [module,buffer]=await Promise.all([
   trackerModule||=import('./vendor/mindar-image.prod.js').catch(e=>{trackerModule=null;throw e}),
-  targetBuffer?Promise.resolve(targetBuffer):fetch('photo.mind?v=7',{signal:s.abort.signal}).then(async r=>{if(!r.ok)throw new Error('Не удалось загрузить образец газеты. Проверьте интернет и обновите страницу.');return targetBuffer=await r.arrayBuffer()})
+  targetBuffer?Promise.resolve(targetBuffer):fetch('photo.mind?v=8',{signal:s.abort.signal}).then(async r=>{if(!r.ok)throw new Error('Не удалось загрузить образец газеты. Проверьте интернет и обновите страницу.');return targetBuffer=await r.arrayBuffer()})
  ]);
  if(!current(s)||generation!==s.trackingGeneration)return;
  s.input={width:feed.videoWidth,height:feed.videoHeight};feed.width=s.input.width;feed.height=s.input.height;
